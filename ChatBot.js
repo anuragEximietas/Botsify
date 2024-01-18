@@ -1,5 +1,59 @@
 const createChatbotApp = (uicolor,apiLink) => {
-  
+  let productTitle = '';
+  let messages;
+
+  function addMessage(role, content) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `${role}`;
+    messageDiv.textContent = content;
+    messageDiv.style.display = 'flex';
+    if (messageDiv.className === 'chatbot'){
+      messageDiv.style.backgroundColor = uicolor;
+      messageDiv.style.color = 'white';
+    } 
+    else{
+      messageDiv.style.backgroundColor = 'white';
+    } 
+
+    messages.appendChild(messageDiv);
+    
+  }
+
+  function handleInputChange(e) {
+    productTitle = e.target.value;
+  }
+
+  async function handleSendMessage() {
+    if (!productTitle) return;
+    addMessage('user', productTitle);
+
+    if (productTitle.toLowerCase() === 'hello' || /hello/.test(productTitle.toLowerCase())) {
+      addMessage('chatbot', 'Hello! How can I assist you today?');
+      productTitle = '';
+      return;
+    }
+
+    try {
+      const response = await fetch(apiLink+`${productTitle}`);
+      const apiResponse = await response.json();
+
+      if (apiResponse.products && apiResponse.products.length > 0) {
+        const product = apiResponse.products[0];
+        const description = product.description || 'No description available';
+        const price = product.price || 'Price not specified';
+        const ratings = product.rating || 'No ratings available';
+
+        addMessage('chatbot', `Description: ${description}\nPrice: $${price}\nRatings: ${ratings}`);
+      } else {
+        addMessage('chatbot', `I'm sorry, I didn't understand. Please try a different query`);
+      }
+    } catch (error) {
+      console.error('Error fetching product information:', error);
+      addMessage('chatbot', 'Error fetching product information. Please try again.');
+    }
+
+    productTitle = '';
+  }
     function render() {
       document.addEventListener('DOMContentLoaded', () => {
         const body = document.body;
@@ -45,6 +99,9 @@ const createChatbotApp = (uicolor,apiLink) => {
         container.appendChild(inputContainer);
   
         body.appendChild(container);
+      
+        sendButton.addEventListener('click', () => handleSendMessage());
+        input.addEventListener('input', (e) => handleInputChange(e));
       });
     }
   
