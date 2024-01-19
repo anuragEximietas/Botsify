@@ -22,7 +22,18 @@ const createChatbotApp = (uicolor,apiLink) => {
   function handleInputChange(e) {
     productTitle = e.target.value;
   }
+  function toggleChatbot() {
+    const container = document.getElementById('container');
+    const input = document.getElementById('input');
 
+    if(container.style.display === 'none'){
+      container.style.display = 'flex';
+      badgeFloat.style.display='none';
+      count=0;
+    } 
+    else container.style.display = 'none';
+    input.focus();
+  }
   async function handleSendMessage() {
     if (!productTitle) return;
     addMessage('user', productTitle);
@@ -63,8 +74,26 @@ const createChatbotApp = (uicolor,apiLink) => {
   
         const head = document.head || document.getElementsByTagName('head')[0];
         head.appendChild(title);
-  
-        const container = document.createElement('div');
+
+        
+      const floatingDiv=document.createElement('div')
+      floatingDiv.className='floating-button-div'
+      floatingDiv.style.position='fixed'
+      floatingDiv.style.bottom='20px'
+      floatingDiv.style.right='20px'
+      
+      const floatingButton=document.createElement('button')
+      floatingButton.className='fb'
+      floatingButton.innerHTML='💬'
+      //floatingButton.style=  `background-color: ${uicolor};`
+      floatingButton.style=`background-color: ${uicolor}; color:white; border: none; border-radius: 50%; padding:20px; font-size:16px; cursor: pointer; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);`
+      body.appendChild(floatingDiv)
+      floatingDiv.appendChild(floatingButton)
+
+      floatingButton.addEventListener('click', toggleChatbot);
+        
+      
+      const container = document.createElement('div');
         container.id = 'container';
         container.className = 'container';
  
