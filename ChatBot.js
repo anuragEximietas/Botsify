@@ -161,6 +161,23 @@ const createChatbotApp = (uicolor,apiLink) => {
         sendButton.className = 'btn';
         sendButton.textContent = 'Send';
 
+        const sendButtonIcon = document.createElement('img');
+      sendButtonIcon.src='https://cdn-icons-png.flaticon.com/128/2983/2983788.png'
+      sendButtonIcon.style='width:20px; height:20px'
+      sendButton.appendChild(sendButtonIcon)
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '✖'; 
+    closeButton.style.background = 'none';
+    closeButton.style.border = 'none';
+    closeButton.style.fontSize = '15px';
+    closeButton.style.color = 'white';
+
+    closeButton.addEventListener('click', () => {
+      container.style.display = 'none';
+    });
+    headerTitle.appendChild(closeButton);
+
         inputContainer.appendChild(input);
         inputContainer.appendChild(sendButton);
   
