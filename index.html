@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="http://127.0.0.1:5500/Chatbot.css">
+  <link rel="stylesheet" href="index.css"> 
+</head>
+<body>
+    <script src="http://127.0.0.1:5500/Chatbot.js"></script>
+    <script>
+      const apiLink="https://dummyjson.com/products/search?q="
+      const uicolor='purple'
+      const msgcolor='#F3CCF3'
+      const textcolor = 'black'
+      const Chatbot = createChatbotApp(uicolor,msgcolor,textcolor,apiLink);
+      Chatbot.render()
+    </script>
+</body>
+</html>
