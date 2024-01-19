@@ -1,6 +1,7 @@
 const createChatbotApp = (uicolor,apiLink) => {
   let productTitle = '';
   let messages;
+  let isThinking = false; 
 
   function addMessage(role, content) {
     const messageDiv = document.createElement('div');
@@ -16,7 +17,7 @@ const createChatbotApp = (uicolor,apiLink) => {
     } 
 
     messages.appendChild(messageDiv);
-    
+    messages.scrollTop = messages.scrollHeight;
   }
 
   function handleInputChange(e) {
@@ -38,13 +39,23 @@ const createChatbotApp = (uicolor,apiLink) => {
     if (!productTitle) return;
     addMessage('user', productTitle);
 
+    const input = document.getElementById('input');
+    if (input) {
+      input.value = '';
+    }
+    addThinkingMessage();
+    isThinking = true;
+
     if (productTitle.toLowerCase() === 'hello' || /hello/.test(productTitle.toLowerCase())) {
       addMessage('chatbot', 'Hello! How can I assist you today?');
       productTitle = '';
       return;
     }
 
+    const delayPromise = new Promise(resolve => setTimeout(resolve, 2000));
+
     try {
+      await delayPromise;
       const response = await fetch(apiLink+`${productTitle}`);
       const apiResponse = await response.json();
 
@@ -61,9 +72,38 @@ const createChatbotApp = (uicolor,apiLink) => {
     } catch (error) {
       console.error('Error fetching product information:', error);
       addMessage('chatbot', 'Error fetching product information. Please try again.');
+    } finally {
+      isThinking = false;
+      removeThinkingMessage();
     }
 
     productTitle = '';
+    messages.scrollTop = messages.scrollHeight;
+  }
+  function addThinkingMessage() {
+    const existingThinkingMessage = document.querySelector('.chatbot.thinking');
+    if (!existingThinkingMessage) {
+      addMessage('chatbot thinking', '🤖');
+      
+      const styleElement = document.createElement('style');
+      styleElement.textContent = `
+        @keyframes pulse {
+          0% { opacity: 0.5; }
+          50% { opacity: 1; }
+          100% { opacity: 0.5; }
+        }
+        .chatbot.thinking {
+          animation: pulse 1s infinite; 
+        }
+      `;
+      document.head.appendChild(styleElement);
+    }
+  }
+  function removeThinkingMessage() {
+    const existingThinkingMessage = document.querySelector('.chatbot.thinking');
+    if (existingThinkingMessage) {
+      existingThinkingMessage.remove();
+    }
   }
     function render() {
       document.addEventListener('DOMContentLoaded', () => {
@@ -131,6 +171,11 @@ const createChatbotApp = (uicolor,apiLink) => {
       
         sendButton.addEventListener('click', () => handleSendMessage());
         input.addEventListener('input', (e) => handleInputChange(e));
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            handleSendMessage();
+          }
+        }); 
       });
     }
   
