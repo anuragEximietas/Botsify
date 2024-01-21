@@ -1,7 +1,7 @@
 const createChatbotApp = (uicolor,msgcolor,textcolor,apiLink) => {
   let productTitle = '';
   let messages;
-  let audio = new Audio('http://127.0.0.1:5500/beep_beep_sms.mp3');
+  let audio = new Audio('http://127.0.0.1:5501/beep_beep_sms.mp3');
   let count =0;
   let isThinking = false; 
 
@@ -202,30 +202,30 @@ function render() {
       container.id = 'container';
       container.className = 'container';
       container.style = `
-      position: fixed; 
-      flex-direction: column;
-      align-self: flex-end; 
-      margin-top:10%;
-      margin-bottom: 5%; 
-      margin-left: 68%;
-      height: 400px; 
-      width: 300px; 
-      border: 0px solid antiquewhite; 
-      border-radius: 20px; 
-      overflow: hidden; 
-      background-color: white;`
+          position: fixed; 
+          flex-direction: column;
+          align-self: flex-end; 
+          margin-top:10%;
+          margin-bottom: 5%; 
+          margin-left: 68%;
+          height: 400px; 
+          width: 300px; 
+          border: 0px solid antiquewhite; 
+          border-radius: 20px; 
+          overflow: hidden; 
+          background-color: white;`
       container.style.display = 'none';
 
       const headerTitle = document.createElement('h2');
       headerTitle.textContent = 'BotsifY 🤖';
       headerTitle.style = `
-      background-color: ${uicolor}; 
-      font-size: 20px; 
-      font-family: lucida Console;
-      margin: 0px; 
-      padding: 15px; 
-      color: white; 
-      text-align: center;`
+          background-color: ${uicolor}; 
+          font-size: 20px; 
+          font-family: lucida Console;
+          margin: 0px; 
+          padding: 15px; 
+          color: white; 
+          text-align: center;`
       container.appendChild(headerTitle);
 
      
@@ -233,56 +233,56 @@ function render() {
       messages.id = 'messages';
       messages.className = 'messages';
       messages.style=`
-      flex: 1;
-      padding: 10px; 
-      overflow-y: auto;`
+          flex: 1;
+          padding: 10px; 
+          overflow-y: auto;`
 
       const placeholder = document.createElement('p');
       placeholder.className = 'placeholder';
       placeholder.textContent = "I'm Botsify, How can I help you?";
       //placeholder.style.backgroundColor = msgcolor;
       placeholder.style=`
-      background-color: ${msgcolor}; 
-      color: ${textcolor}; 
-      align-self: flex-end;
-      border-radius: 5px;
-      padding: 10px;`
+          background-color: ${msgcolor}; 
+          color: ${textcolor}; 
+          align-self: flex-end;
+          border-radius: 5px;
+          padding: 10px;`
 
       messages.appendChild(placeholder);
 
       const inputContainer = document.createElement('div');
       inputContainer.className = 'input-container';
       inputContainer.style = `
-      display: flex;
-      justify-content: space-between; 
-      padding: 10px;`
+          display: flex;
+          justify-content: space-between; 
+          padding: 10px;`
 
       const input = document.createElement('input');
       input.type = 'text';
       input.id = 'input';
       input.className = 'input';
       input.style = `
-      border-radius: 15px; 
-      flex: 1; 
-      padding: 8px; 
-      margin-right: 0px;`
+          border-radius: 15px; 
+          flex: 1; 
+          padding: 8px; 
+          margin-right: 0px;`
   
       const sendButton = document.createElement('button');
       sendButton.id = 'sendButton';
       sendButton.className = 'btn';
       //sendButton.textContent = 'Send';
       sendButton.style = `
-      background-color: white; 
-      padding: 4px 8px; 
-      color: #fff; 
-      border: none; 
-      border-radius: 20px; 
-      cursor: pointer;`
+          background-color: white; 
+          padding: 4px 8px; 
+          color: #fff; 
+          border: none; 
+          border-radius: 20px; 
+          cursor: pointer;`
       
-      const sendButtonIcon = document.createElement('img');
-      sendButtonIcon.src='https://cdn-icons-png.flaticon.com/128/2983/2983788.png'
-      sendButtonIcon.style='width:20px; height:20px'
-      sendButton.appendChild(sendButtonIcon)
+    const sendButtonIcon = document.createElement('img');
+    sendButtonIcon.src='https://cdn-icons-png.flaticon.com/128/2983/2983788.png'
+    sendButtonIcon.style='width:20px; height:20px'
+    sendButton.appendChild(sendButtonIcon)
 
     const closeButton = document.createElement('button');
     closeButton.textContent = '✖'; 
@@ -291,7 +291,7 @@ function render() {
     closeButton.style.fontSize = '15px';
     closeButton.style.color = 'white';
     
-  // //   closeButton.style.textAlign='right'
+    //closeButton.style.textAlign='right'
      closeButton.style.position = 'relative';
      closeButton.style.top = '0';
      closeButton.style.right = '-3.5rem';
