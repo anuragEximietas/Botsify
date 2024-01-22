@@ -83,34 +83,28 @@ async function handleSendMessage() {
 
   try {
     await delayPromise;
-
     if (/hello/.test(productTitle.toLowerCase()) || /hey/.test(productTitle.toLowerCase()) || /hi/.test(productTitle.toLowerCase())) {
-      addMessage('chatbot', 'Hello! How can I assist you today?');
-    } 
-    else {
-      const response = await fetch(apiLink + `${productTitle}`);
-      const apiResponse = await response.json();
-
-      if (apiResponse.products && apiResponse.products.length > 0) {
-        const product = apiResponse.products[0];
-        const description = product.description || 'No description available';
-        const price = product.price || 'Price not specified';
-        const ratings = product.rating || 'No ratings available';
-
-        addMessage('chatbot', `Description: ${description}\nPrice: $${price}\nRatings: ${ratings}`);
-      } else {
-        addMessage('chatbot', `I'm sorry, I didn't understand. Please try a different query`);
-      }
+        addMessage('chatbot', 'Hello! How can I assist you today?');
+    } else {
+        const response = await fetch(apiLink + `${productTitle}`);
+        const apiResponse = await response.json();
+        if (apiResponse.products && apiResponse.products.length > 0) {
+            const product = apiResponse.products[0];
+            const description = product.description || 'No description available';
+            const price = product.price || 'Price not specified';
+            const ratings = product.rating || 'No ratings available';
+            addMessage('chatbot', `Description: ${description}\nPrice: $${price}\nRatings: ${ratings}`);
+        } else {
+          addMessage('chatbot', `I'm sorry, I didn't understand. Please try a different query`);
+        }
     }
-  } 
-  catch (error) {
-    console.error('Error fetching product information:', error);
+ } catch (error) { 
     addMessage('chatbot', 'Error fetching product information. Please try again.');
-  } 
-  finally {
+    throw error;
+ } finally {
     isThinking = false;
     removeThinkingMessage();
-  }
+ }
   messages.scrollTop = messages.scrollHeight;
 }
 
