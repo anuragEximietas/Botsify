@@ -1,22 +1,25 @@
-const createChatbotApp = (uicolor,msgcolor,textcolor,apiLink) => {
+const createChatbotApp = (uicolor,msgcolor,textcolor,apiLink,audioLink,iconLink) => {
   let productTitle = '';
   let messages;
-  let audio = new Audio('http://127.0.0.1:5501/beep_beep_sms.mp3');
+  let audio = new Audio(audioLink);
   let count =0;
   let isThinking = false; 
 
   const badgeFloat = document.createElement('div')
   badgeFloat.className='badge'
   badgeFloat.className='badge'
-  badgeFloat.style.display='none'
-  badgeFloat.style.position = 'absolute'
-  badgeFloat.style.top = '0'
-  badgeFloat.style.right = '0'
-  badgeFloat.style.backgroundColor = 'blue'
-  badgeFloat.style.color = textcolor
-  badgeFloat.style.borderRadius = '50%'
-  badgeFloat.style.padding = '5px 8px'
-  badgeFloat.style.fontSize = '12px'
+
+  badgeFloat.style= `
+     display:none;
+     position:absolute;
+     top:0;
+     right:0;
+     background-color:blue;
+     color:${textcolor};
+     border-radius:50%;
+     padding:5px 8px;
+     font-size:12px;
+     `
 
   function addMessage(role, content) {
     const messageDiv = document.createElement('div');
@@ -280,7 +283,7 @@ function render() {
           cursor: pointer;`
       
     const sendButtonIcon = document.createElement('img');
-    sendButtonIcon.src='https://cdn-icons-png.flaticon.com/128/2983/2983788.png'
+    sendButtonIcon.src=iconLink
     sendButtonIcon.style='width:20px; height:20px'
     sendButton.appendChild(sendButtonIcon)
 
