@@ -39,14 +39,18 @@ const createChatbotApp = (uicolor, msgcolor, textcolor, apiLink, audioLink, icon
     productTitle = e.target.value;
   }
 
+  function resetNotificationCount() {
+    badgeFloat.style.display = 'none';
+    count = 0; 
+  }
+
   function toggleChatbot() {
     const container = document.getElementById('container');
     const input = document.getElementById('input');
     const { badgeFloat } = createFloatingButton(); 
     if (container.style.display === 'none') {
       container.style.display = 'flex';
-      badgeFloat.style.display = 'none';
-      count = 0;
+      resetNotificationCount();
     } else container.style.display = 'none';
     input.focus();
   }
