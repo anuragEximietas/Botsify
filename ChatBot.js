@@ -1,4 +1,4 @@
-const createChatbotApp = (uicolor, msgcolor, textcolor, apiLink, audioLink, iconLink) => {
+const createChatbotApp = (uicolor, msgcolor, textcolor, apiLink, audioLink, iconLink,chatBotName,chatBotIcon,floatingButtonIcon,closeButtonIcon) => {
   let productTitle = '';
   let messages;
   let audio = new Audio(audioLink);
@@ -94,7 +94,7 @@ const createChatbotApp = (uicolor, msgcolor, textcolor, apiLink, audioLink, icon
   function addThinkingMessage() {
     const existingThinkingMessage = document.querySelector('.chatbot.thinking');
     if (!existingThinkingMessage) {
-      addMessage('chatbot thinking', '🤖');
+      addMessage('chatbot thinking', chatBotIcon);
 
       const styleElement = document.createElement('style');
       styleElement.textContent = `
@@ -152,7 +152,7 @@ const createChatbotApp = (uicolor, msgcolor, textcolor, apiLink, audioLink, icon
 
     const floatingButton = document.createElement('button');
     floatingButton.className = 'fb';
-    floatingButton.innerHTML = '💬';
+    floatingButton.innerHTML = floatingButtonIcon;
     floatingButton.style = `
     background-color: ${uicolor}; 
     color:white; 
@@ -187,7 +187,7 @@ const createChatbotApp = (uicolor, msgcolor, textcolor, apiLink, audioLink, icon
     container.style.display = 'none';
 
     const headerTitle = document.createElement('h2');
-    headerTitle.textContent = 'BotsifY 🤖';
+    headerTitle.textContent = `${chatBotName} ${chatBotIcon}`;
     headerTitle.style = `
     background-color: ${uicolor}; 
     font-size: 20px; 
@@ -251,7 +251,7 @@ const createChatbotApp = (uicolor, msgcolor, textcolor, apiLink, audioLink, icon
     sendButton.appendChild(sendButtonIcon);
 
     const closeButton = document.createElement('button');
-    closeButton.textContent = '✖';
+    closeButton.textContent = closeButtonIcon;
     closeButton.style.background = 'none';
     closeButton.style.border = 'none';
     closeButton.style.fontSize = '15px';
